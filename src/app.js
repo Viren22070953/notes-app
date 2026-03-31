@@ -16,11 +16,42 @@ app.post('/notes',(req,res)=>{
 })
 
 app.get('/notes',(req,res)=>{
+
   res.status(200).json({
     message:'Notes retrieved successfully',
-    notes
+    notes:notes
+  })
+});
+
+app.get('/notes/:id',(req,res)=>{
+  const id=req.params.id;
+  res.status(200).json({
+    message:'Note retrieved successfully',
+    note:notes[id]
   });
 });
+
+app.delete('/notes/:id',(req,res)=>{
+  const id=req.params.id;
+
+  delete notes[id];
+
+  res.status(200).json({
+    message:'Note deleted successfully',
+  });
+
+});
+
+app.patch('/notes/:id',(req,res)=>{
+  const id=req.params.id;
+  const description=req.body.description;
+
+  notes[id].description=description;
+  res.status(200).json({
+    message:'Note updated successfully',
+    note:notes[id]
+  });
+})
 
 
 
